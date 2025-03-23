@@ -1,0 +1,15 @@
+package com.hotelservice.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.hotelservice.repo.HotelRepo;
+
+@Service
+public class HotelService  {
+
+	@Autowired
+	private HotelRepo repo;
+	
+	
+}

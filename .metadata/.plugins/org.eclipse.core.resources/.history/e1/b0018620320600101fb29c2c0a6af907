@@ -1,0 +1,5 @@
+package com.usersservice.exception;
+
+public class ExceptionHandler {
+
+}

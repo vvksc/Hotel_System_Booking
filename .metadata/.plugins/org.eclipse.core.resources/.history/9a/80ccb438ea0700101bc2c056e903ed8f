@@ -1,0 +1,23 @@
+package com.usersservice.models;
+
+
+
+
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
+import lombok.Data;
+
+
+@Data
+public class Hotel {
+
+	
+	private String id;
+    
+    private String name;
+    private String location;
+    private String rating;
+    private int numberOfRoomsAvailable;
+   private String number;
+}
+

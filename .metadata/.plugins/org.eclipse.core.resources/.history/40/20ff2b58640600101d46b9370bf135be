@@ -1,0 +1,5 @@
+package com.hotelservice.config.kafka;
+
+public class KafkaConfig {
+
+}

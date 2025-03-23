@@ -1,0 +1,18 @@
+package com.usersservice.exception;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.usersservice.exception.payload.ApiResponse;
+//import org.springframework.web.bind.annotation;
+
+@RestControllerAdvice
+public class ExceptionHandler {
+
+
+	@org.springframework.web.bind.annotation.ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<ApiResponse> resourcenotfoundexceptionhandler(ResourceNotFoundException ex){
+		
+		
+	}
+}

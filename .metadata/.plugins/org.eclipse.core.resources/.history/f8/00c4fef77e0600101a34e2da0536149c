@@ -1,0 +1,53 @@
+package com.usersservice.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+import com.usersservice.exception.ResourceNotFoundException;
+import com.usersservice.models.User;
+import com.usersservice.repo.UserRepo;
+
+@Service
+public class UserService {
+
+	@Autowired
+	private UserRepo userRepo;
+	
+	 @Autowired
+	   private KafkaTemplate<String, User> kafkaTemplate;
+	
+	public String createUser(User user) {
+		
+		if(user !=null) {
+			userRepo.save(user);
+			kafkaTemplate.send("USER_CREATED", user);
+			
+			return "user crated";
+		}
+		kafkaTemplate.send("USER_NOT_CREATED", user);
+		return "User not created";
+	}
+	@Cacheable(value = "user", key = "#id")
+	public User getUser(String id) {
+		return userRepo.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException("By givind id user is not found "+id));
+	}
+	
+	public List<User> getAllUser(){
+		return userRepo.findAll();
+	}
+	
+	public void delete(String id) {
+		userRepo.delete(userRepo.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException
+						("By givind id user is not found "+id)));
+		kafkaTemplate.send("USER_DELETED", userRepo.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException
+						("By givind id user is not found "+id)));
+	}
+	
+}

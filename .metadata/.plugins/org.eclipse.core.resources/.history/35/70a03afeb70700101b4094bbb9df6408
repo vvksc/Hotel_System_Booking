@@ -1,0 +1,10 @@
+package com.usersservice.service.feign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name="BOOKINGSERVICE")
+public interface BookingService {
+
+	
+	
+}

@@ -1,0 +1,5 @@
+package com.bookingservice.kafka.Config;
+
+public class KafkaConfig {
+
+}

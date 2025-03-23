@@ -1,0 +1,26 @@
+package com.hotelservice.kafkareceivedmessagess;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.KafkaListener;
+
+import com.hotelservice.kafkareceivedmessagess.models.User;
+
+@Configuration
+public class KafkaUpdate {
+
+	@KafkaListener(topics = "USER_CREATED", groupId = "hotel_group")
+	public void userCreated(String s) {
+		
+		System.out.println(s);
+	}
+	@KafkaListener(topics = "booking-events", groupId = "booking_group")
+	public void bookingCreated(String s) {
+		try {
+			int n=Integer.parseInt(s);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+}

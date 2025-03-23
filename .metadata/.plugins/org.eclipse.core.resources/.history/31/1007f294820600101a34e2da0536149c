@@ -1,0 +1,5 @@
+package com.hotelservice.kafkareceivedmessagess.models;
+
+public class User {
+
+}

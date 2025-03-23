@@ -1,0 +1,53 @@
+package com.bookingservice.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+import com.bookingservice.models.Booking;
+import com.bookingservice.repo.BookingRepo;
+
+@Service
+public class BookingService {
+
+	
+
+	    @Autowired
+	    private BookingRepo repo;
+
+	    @Autowired
+	    private KafkaTemplate<String, String> kafkaTemplate;
+
+	    @Cacheable(value = "bookings", key = "#id")
+	    public Booking getBookingById(String id) {
+	        return repo.findById(id).orElseThrow(()-> new ArithmeticException());
+	    }
+
+	    public List<Booking> getBookingsByUserId(Long userId) {
+	        return repo.findByUserId(userId);
+	    }
+
+	    public Booking createBooking(Booking booking) {
+	        Booking savedBooking = bookingRepository.save(booking);
+	        
+	        // Send Kafka Event
+	        String message = "New Booking Created: ID=" + savedBooking.getId() +
+	                         ", User=" + savedBooking.getUserId() +
+	                         ", Hotel=" + savedBooking.getHotelId();
+	        kafkaTemplate.send("booking-events", message);
+
+	        return savedBooking;
+	    }
+
+	    public void cancelBooking(Long id) {
+	        bookingRepository.deleteById(id);
+	        
+	        // Send Kafka Event
+	        kafkaTemplate.send("booking-events", "Booking Cancelled: ID=" + id);
+	    }
+	}
+
+}

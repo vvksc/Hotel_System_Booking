@@ -1,0 +1,13 @@
+package com.hotelservice.kafkareceivedmessagess;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.KafkaListener;
+
+@Configuration
+public class KafkaUpdate {
+
+//	@KafkaListener(topics = "USER_CREATED", groupId = "hotel_group")
+//	public void userCreated(Object s) {
+//		System.out.println(s);
+//	}
+}

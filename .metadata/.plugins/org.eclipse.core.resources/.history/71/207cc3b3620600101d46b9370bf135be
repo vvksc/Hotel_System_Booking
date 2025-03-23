@@ -1,0 +1,5 @@
+package com.hotelservice.repo;
+
+public class HotelRepo {
+
+}

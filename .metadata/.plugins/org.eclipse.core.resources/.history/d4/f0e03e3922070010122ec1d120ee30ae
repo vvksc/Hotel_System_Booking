@@ -1,0 +1,79 @@
+package com.bookingservice.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+import com.bookingservice.models.Booking;
+import com.bookingservice.repo.BookingRepo;
+
+@Service
+public class BookingService {
+
+	
+
+	    @Autowired
+	    private BookingRepo repo;
+	    
+	    private static int id=20001;
+
+	    @Autowired
+	    private KafkaTemplate<String, String> kafkaTemplate;
+
+	    @Cacheable(value = "bookings", key = "#id")
+	    public Booking getBookingById(String id) {
+	    	System.out.println("++++++++++++++++");
+	        return repo.findById(id).orElseThrow(()-> new ArithmeticException());
+	    }
+
+	    public List<Booking> getBookingsByUserId(String userId) {
+	        return repo.findByUserId(userId);
+	    }
+	    public List<Booking> getBookingsByHotelId(String userId) {
+	        return repo.findByHotelId(userId);
+	    }
+
+	    public Booking createBooking(Booking booking) {
+	    	booking.setId(""+id++);
+	        Booking savedBooking = repo.save(booking);
+	        
+	        // Send Kafka Event
+	        String message = ""+savedBooking.getHotelId();
+	        kafkaTemplate.send("booking-events", message);
+
+	        return savedBooking;
+	    }
+	    public int createListBooking(List<Booking> booking) {
+	    	for(Booking b:booking) {
+	    		b.setId(""+id++);
+	    		String message = ""+b.getHotelId();
+	 	        kafkaTemplate.send("booking-events", message);
+	    	}
+	        repo.saveAll(booking);
+	        
+	        // Send Kafka Event
+	       
+
+	        return booking.size();
+	    }
+
+	    public void cancelBooking(String id) {
+	    	
+	    	
+	        
+	        // Send Kafka Event
+	        kafkaTemplate
+	        .send("booking-events", ""+repo.findById(id)
+	        .orElseThrow(()-> new ArithmeticException())
+	        .getHotelId());
+	        repo.deleteById(id);
+	    }
+	    public List<Booking> getAllBookings(){
+	    	return repo.findAll();
+	    }
+	}
+
+

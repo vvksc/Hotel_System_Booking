@@ -1,0 +1,42 @@
+package com.hotelservice.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.hotelservice.models.Hotel;
+import com.hotelservice.service.HotelService;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/hotels")
+public class HotelController {
+
+    @Autowired
+    private HotelService hotelService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Hotel> getHotelById(@PathVariable String id) {
+        return ResponseEntity.ok(hotelService.getHotel(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Hotel>> getAllHotels() {
+        return ResponseEntity.ok(hotelService.getAllHotels());
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createHotel(@RequestBody Hotel hotel) {
+        return ResponseEntity.ok(hotelService.createHotel(hotel));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteHotel(@PathVariable Long id) {
+        hotelService.deleteHotel(id);
+        return ResponseEntity.ok("Hotel Deleted Successfully");
+    }
+}
+

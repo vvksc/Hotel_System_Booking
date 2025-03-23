@@ -1,0 +1,5 @@
+package com.usersservice.controller;
+
+public class UserController {
+
+}

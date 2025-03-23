@@ -1,0 +1,21 @@
+package com.usersservice.service.feign;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import ch.qos.logback.core.encoder.Encoder;
+
+@Configuration
+public class FeignConfig {
+	
+    @Bean
+    public Encoder feignEncoder() {
+        return new JacksonEncoder();
+    }
+
+    @Bean
+    public Decoder feignDecoder() {
+        return new JacksonDecoder();
+    }
+}
+

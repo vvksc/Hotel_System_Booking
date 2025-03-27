@@ -3,13 +3,15 @@ package com.usersservice.models;
 
 
 
+import java.io.Serializable;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.Transient;
 import lombok.Data;
 
 
 @Data
-public class Hotel {
+public class Hotel implements Serializable {
 
 	
 	

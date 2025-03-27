@@ -12,7 +12,7 @@ import lombok.Data;
 
 
 @Data
-public class Booking  {
+public class Booking implements Serializable  {
 
 	
 	private String id;

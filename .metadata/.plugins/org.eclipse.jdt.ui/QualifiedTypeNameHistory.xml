@@ -39,13 +39,11 @@
     <fullyQualifiedTypeName name="com.hotelservice.repo.HotelRepo"/>
     <fullyQualifiedTypeName name="org.springframework.cloud.openfeign.EnableFeignClients"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Transient"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.usersservice.models.Booking"/>
     <fullyQualifiedTypeName name="com.usersservice.service.feign.BookingService"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
-    <fullyQualifiedTypeName name="java.io.Serializable"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="org.springframework.scheduling.annotation.Scheduled"/>
     <fullyQualifiedTypeName name="org.springframework.scheduling.annotation.EnableScheduling"/>
@@ -55,4 +53,8 @@
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.usersservice.service.feign.HotelService"/>
     <fullyQualifiedTypeName name="com.usersservice.models.Hotel"/>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.usersservice.repo.projection.UserProjection"/>
 </qualifiedTypeNameHistroy>

@@ -1,5 +1,7 @@
 package com.hotelservice.models;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Transient;
@@ -7,7 +9,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Hotel {
+public class Hotel implements Serializable{
 
 	@Id
 	private String id;

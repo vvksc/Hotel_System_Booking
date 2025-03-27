@@ -14,15 +14,21 @@ import com.usersservice.models.Booking;
 import com.usersservice.models.Hotel;
 import com.usersservice.models.User;
 import com.usersservice.repo.UserRepo;
+import com.usersservice.repo.projection.UserProjection;
 import com.usersservice.service.feign.BookingService;
 import com.usersservice.service.feign.HotelService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class UserService {
 
 	@Autowired
 	private UserRepo userRepo;
 	private static int id=1001;
+	
+	List<UserProjection> l1;
 	
 	 @Autowired
 	   private KafkaTemplate<String, String> kafkaTemplate;
@@ -58,13 +64,14 @@ public class UserService {
 						("By givind id user is not found "+id));
 		List<Booking> book=bookingService.getBookings(id);
 		
-		System.out.println(book);
+		log.warn(""+book);
 		for(Booking i:book) {
 			Hotel hotel=service.getHotelDetail(i.getHotelId());
 			i.setHoteldetail(hotel);
 			u.getMyBookings().add(i);
 		}
-//		u.setMyBookings(book);
+		 l1=userRepo.findBy();
+		
 		return u;
 		
 	}
@@ -81,7 +88,9 @@ public class UserService {
 	}
 //	@Scheduled(fixedRate = 5000)
 //	public void ask() {
-//		System.out.println("task executed");
+//		log.warn(""+l1);
+//		l1.forEach(user -> System.out.println(user.getId() + " - " + user.getusername()));
+////		u.setMyBookings(book);
 //	}
 	
 }
